@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BotanistAI: An AI Plant Doctor in a Weekend — Half-Baked</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Load marked.js for markdown parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root {
+      --cream: #FDF6E3;
+      --warm-white: #FFFDF9;
+      --crust: #D4A574;
+      --golden: #E8B86D;
+      --burnt: #8B4513;
+      --charcoal: #2D2A26;
+      --warm-gray: #6B635A;
+      --soft-shadow: rgba(139, 69, 19, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* Header */
+    header {
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--burnt);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    nav a {
+      color: var(--warm-gray);
+      text-decoration: none;
+      margin-left: 2rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--burnt);
+    }
+
+    /* Raw markdown link */
+    .raw-link {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .raw-link a {
+      color: var(--warm-gray);
+      text-decoration: none;
+      border: 1px solid var(--crust);
+      padding: 0.4rem 0.8rem;
+      border-radius: 100px;
+      transition: all 0.2s ease;
+    }
+
+    .raw-link a:hover {
+      background: var(--crust);
+      color: var(--warm-white);
+    }
+
+    /* Article */
+    article {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 2rem 6rem;
+    }
+
+    /* Markdown content styling */
+    .content h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .content h1 + p {
+      text-align: center;
+      color: var(--warm-gray);
+      font-style: italic;
+      margin-bottom: 2rem;
+    }
+
+    .content h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin: 3rem 0 1.5rem;
+    }
+
+    .content h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin: 2.5rem 0 1rem;
+    }
+
+    .content p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .content strong {
+      color: var(--burnt);
+      font-weight: 600;
+    }
+
+    .content em {
+      font-style: italic;
+    }
+
+    .content a {
+      color: var(--burnt);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .content a:hover {
+      color: var(--charcoal);
+    }
+
+    .content ul, .content ol {
+      margin: 1.5rem 0;
+      padding-left: 1.5rem;
+    }
+
+    .content li {
+      margin-bottom: 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    .content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9em;
+      background: rgba(139, 69, 19, 0.08);
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+
+    .content pre {
+      background: var(--charcoal);
+      color: #f5f5f5;
+      padding: 1.5rem;
+      border-radius: 12px;
+      overflow-x: auto;
+      margin: 2rem 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .content pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    .content blockquote {
+      border-left: 4px solid var(--crust);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--warm-gray);
+    }
+
+    .content hr {
+      border: none;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--crust), transparent);
+      margin: 3rem 0;
+    }
+
+    /* Loading state */
+    .loading {
+      text-align: center;
+      padding: 4rem;
+      color: var(--warm-gray);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem;
+      color: var(--warm-gray);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--burnt);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header {
+        padding: 1.5rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav a {
+        margin-left: 1rem;
+        margin-right: 1rem;
+      }
+
+      article {
+        padding: 1.5rem 1.5rem 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="../" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="16" width="32" height="20" rx="4" fill="#D4A574"/>
+        <rect x="6" y="18" width="28" height="16" rx="3" fill="#E8B86D"/>
+        <ellipse cx="14" cy="26" rx="4" ry="3" fill="#8B4513" opacity="0.3"/>
+        <ellipse cx="26" cy="26" rx="4" ry="3" fill="#8B4513" opacity="0.3"/>
+        <path d="M12 12C12 12 14 8 20 8C26 8 28 12 28 12" stroke="#8B4513" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="20" cy="6" r="2" fill="#E8B86D"/>
+      </svg>
+      Half-Baked
+    </a>
+    <nav>
+      <a href="../#projects">Projects</a>
+      <a href="../#about">About</a>
+      <a href="https://github.com/abhirajp97" target="_blank">GitHub</a>
+    </nav>
+  </header>
+
+  <article>
+    <div class="raw-link">
+      <a href="botanistai.md" target="_blank">📄 View raw markdown</a>
+    </div>
+    <div id="content" class="content">
+      <p class="loading">Loading...</p>
+    </div>
+  </article>
+
+  <footer>
+    <p><a href="../">← Back to Half-Baked</a></p>
+    <p style="margin-top: 1rem;">Made with 🍞 by Abhiraj Parikh · <a href="https://opensource.org/licenses/MIT" target="_blank">MIT licensed</a></p>
+  </footer>
+
+  <script>
+    // Fetch and render the markdown file
+    fetch('botanistai.md')
+      .then(response => response.text())
+      .then(markdown => {
+        document.getElementById('content').innerHTML = marked.parse(markdown);
+      })
+      .catch(error => {
+        document.getElementById('content').innerHTML = '<p>Error loading content. <a href="botanistai.md">View the raw markdown instead.</a></p>';
+      });
+  </script>
+</body>
+</html>
