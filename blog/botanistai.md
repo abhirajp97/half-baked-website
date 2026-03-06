@@ -50,10 +50,12 @@ Under the hood, it's:
 - **Vercel AI SDK** for multi-model AI integration
 - **Llama 4 Scout via Groq** as the default model (free, open-source — no API key needed)
 - **Vercel serverless functions** to keep API keys off the client
+- **Zod** for validating and typing the AI's JSON output
 - **Tailwind (CDN)** for styling
+- **Recharts** for the health score radial gauge
 - **LocalStorage** for keeping a history of your scans
 
-The whole thing is maybe 600 lines of code. Most of the work was in crafting the right prompt — getting the AI to think like a botanist and return structured, actionable advice instead of rambling paragraphs.
+The whole thing is ~800 lines of code. Most of the work was in crafting the right prompt — getting the AI to think like a botanist and return structured, actionable advice instead of rambling paragraphs.
 
 ---
 
