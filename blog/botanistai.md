@@ -42,15 +42,38 @@ So I spent a weekend wiring it up.
 
 That's it. No account required. No subscription. Just point and diagnose.
 
+**→ [Try the live demo](https://botanistai.vercel.app)**
+
 Under the hood, it's:
 
-- **React** for the UI
-- **Gemini 2.5 Flash** for the AI analysis
-- **Tailwind** for styling
-- **Vite** for the dev environment
+- **React + Vite** for the UI
+- **Vercel AI SDK** for multi-model AI integration
+- **Llama 4 Scout via Groq** as the default model (free, open-source — no API key needed)
+- **Vercel serverless functions** to keep API keys off the client
+- **Tailwind (CDN)** for styling
 - **LocalStorage** for keeping a history of your scans
 
-The whole thing is maybe 500 lines of code. Most of the work was in crafting the right prompt — getting the AI to think like a botanist and return structured, actionable advice instead of rambling paragraphs.
+The whole thing is maybe 600 lines of code. Most of the work was in crafting the right prompt — getting the AI to think like a botanist and return structured, actionable advice instead of rambling paragraphs.
+
+---
+
+## The Architecture
+
+The original version called the Gemini API directly from the browser — which meant the API key was exposed in client-side code. That makes a public demo impossible.
+
+The new setup routes everything through a Vercel serverless function:
+
+```
+Browser → POST /api/analyze { image, provider, apiKey? }
+                    ↓
+         api/analyze.ts (serverless)
+                    ↓
+         Vercel AI SDK → Groq (default) / Gemini / Claude / GPT-4o
+                    ↓
+         PlantAnalysis JSON → Browser
+```
+
+The server holds the `GROQ_API_KEY`, so the public demo works without users needing to sign up for anything. If someone wants to use their own model, they can hit the gear icon in the header, pick a provider, and paste in their own API key.
 
 ---
 
@@ -61,18 +84,13 @@ This is where the magic happens. A naive prompt like "what's wrong with this pla
 The trick is to make the AI adopt a persona and return structured data:
 
 ```
-You are an expert botanist and plant pathologist. 
-Analyze this plant image and provide:
-1. Plant identification (common and scientific name)
-2. Health assessment (score 0-100)
-3. Current diagnosis (be specific about any issues)
-4. Immediate care instructions (actionable steps)
-5. Preventive measures (for long-term health)
-
-Return your response as JSON with these exact fields...
+You are an expert botanist and plant pathologist.
+Analyze the provided image of a plant.
+Identify the plant, diagnose its health, and provide actionable
+care instructions. Be encouraging but realistic.
 ```
 
-The structured output is key. It means I can parse the response and render it as a nice UI instead of a wall of text.
+The Vercel AI SDK's `generateObject` function returns the response as validated, typed JSON via a Zod schema — no manual parsing needed.
 
 ---
 
@@ -84,7 +102,9 @@ The structured output is key. It means I can parse the response and render it as
 
 ✅ **Care advice is specific.** Not "water more" but "water thoroughly until it drains, then wait until the top 2 inches of soil are dry."
 
-✅ **It's fast.** Analysis takes 2-3 seconds.
+✅ **It's fast.** Analysis takes 2-4 seconds.
+
+✅ **Multi-model.** Users can swap to Gemini, Claude, or GPT-4o from the gear icon if they have their own API key.
 
 ---
 
