@@ -4,13 +4,16 @@
 
 ---
 
-I have a confession: I'm a serial plant killer.
+I love having house plants, and sitting on my balcony surrounded by flowers. But they're fragile things,
+and even buying hardy plant species doesn't fix the fact that sometimes they die.
 
-Not intentionally. I *want* to be a good plant parent. I buy the cute pots. I read the care tags. I set reminders to water. And yet, somehow, my fiddle leaf fig still ended up looking like it survived a drought, a flood, and possibly a small fire.
+I'm not intentionally letting this happen. I would really like to be a good plant parent. I set reminders
+to water, I check the species guidelines, I keep the plant in an appropriately sunny space.
 
-The problem isn't motivation — it's diagnosis. By the time I notice something's wrong, I'm already googling "why are my plant leaves turning yellow" and getting 47 different answers ranging from "overwatering" to "underwatering" to "your plant is sad."
+The problem isn't that I'm unmotivated. I'm just not a botanist. By the time I notice something's wrong, I'm already googling "why are my plant leaves turning yellow" and getting 47 different answers ranging from "overwatering" to "underwatering" to "your plant is sad."
 
-So I built something.
+This got me ideating about, and then building BotanistAI, an app where I can just scan my plant, and let AI
+do its magic.
 
 ---
 
@@ -26,9 +29,10 @@ Not a generic "this might be root rot" answer, but actual, specific advice:
 - What should I do? (Right now, today)
 - How do I prevent this? (For next time)
 
-Modern AI vision models are scary good at this kind of thing. They can look at a leaf and notice spots, discoloration, wilting, pest damage — stuff that takes a trained eye to catch.
+Modern AI vision models are ridiculously good at this kind of thing. They can look at a leaf and notice spots, discoloration, wilting, pest damage — stuff that takes a trained eye to catch. And some really good
+vision models are actually *free*.
 
-So I spent a weekend wiring it up.
+I spent a weekend deciding to build myself a mini-botanist in my pocket, that I could use for my plants.
 
 ---
 
@@ -61,7 +65,7 @@ The whole thing is ~800 lines of code. Most of the work was in crafting the righ
 
 ## The Architecture
 
-The original version called the Gemini API directly from the browser — which meant the API key was exposed in client-side code. That makes a public demo impossible.
+The original version was vibe-coded through Gemini, and it called the Gemini API directly from the browser — which meant the API key was exposed in client-side code. That makes a public demo impossible.
 
 The new setup routes everything through a Vercel serverless function:
 
@@ -83,7 +87,7 @@ The server holds the `GROQ_API_KEY`, so the public demo works without users need
 
 This is where the magic happens. A naive prompt like "what's wrong with this plant?" gives you generic, unhelpful answers.
 
-The trick is to make the AI adopt a persona and return structured data:
+The trick is to make the AI adopt a persona (you guessed it, a botanist) and return structured data:
 
 ```
 You are an expert botanist and plant pathologist.
@@ -124,7 +128,7 @@ This is a prototype, not a product. Here's what I intentionally didn't build:
 
 🚧 **No tracking over time.** You can't upload photos weekly and see if your plant is getting better or worse.
 
-These are all solvable problems. I just didn't solve them.
+These are all solvable problems. I just didn't spend the time to work out solving them.
 
 ---
 

@@ -6,765 +6,887 @@
   <title>Half-Baked — Starter code for ideas worth finishing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
   <style>
+    /* ── TOKENS ────────────────────────────────── */
     :root {
-      --cream: #FDF6E3;
-      --warm-white: #FFFDF9;
-      --crust: #D4A574;
-      --golden: #E8B86D;
-      --burnt: #8B4513;
-      --charcoal: #2D2A26;
-      --warm-gray: #6B635A;
-      --soft-shadow: rgba(139, 69, 19, 0.08);
+      --bg:          #F0EDE4;
+      --ink:         #1A1714;
+      --ink-2:       #5A5550;
+      --saffron:     #F0A500;
+      --indigo:      #1B1464;
+      --terra:       #C4632A;
+      --forest:      #2D6A4F;
+      --forest-dark: #0D2B1A;
+      --line:        rgba(26, 23, 20, 0.12);
+      --line-strong: rgba(26, 23, 20, 0.22);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    /* ── RESET ─────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'DM Sans', sans-serif;
-      background-color: var(--cream);
-      color: var(--charcoal);
+      background: var(--bg);
+      color: var(--ink);
       line-height: 1.6;
       overflow-x: hidden;
     }
 
-    /* Grain overlay for texture */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      opacity: 0.03;
-      pointer-events: none;
-      z-index: 1000;
-    }
-
-    /* Header */
+    /* ── HEADER ────────────────────────────────── */
     header {
-      padding: 2rem 3rem;
+      padding: 1.5rem 4rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1400px;
+      max-width: 1440px;
       margin: 0 auto;
+      border-bottom: 1px solid var(--line);
     }
-
     .logo {
-      font-family: 'Fraunces', serif;
-      font-size: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
       font-weight: 600;
-      color: var(--burnt);
+      color: var(--ink);
       text-decoration: none;
+      letter-spacing: -0.01em;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
     }
-
-    .logo-icon {
-      width: 32px;
-      height: 32px;
-    }
-
+    .logo-mark { width: 26px; height: 26px; flex-shrink: 0; }
+    nav { display: flex; align-items: center; gap: 2.5rem; }
     nav a {
-      color: var(--warm-gray);
+      color: var(--ink-2);
       text-decoration: none;
-      margin-left: 2rem;
-      font-size: 0.95rem;
+      font-size: 0.875rem;
       font-weight: 500;
-      transition: color 0.2s ease;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
     }
+    nav a:hover { color: var(--ink); }
 
-    nav a:hover {
-      color: var(--burnt);
-    }
-
-    /* Hero Section */
+    /* ── HERO ──────────────────────────────────── */
     .hero {
-      max-width: 1400px;
+      max-width: 1440px;
       margin: 0 auto;
-      padding: 4rem 3rem 6rem;
+      padding: 5.5rem 4rem 5rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      gap: 5rem;
       align-items: center;
     }
-
-    .hero-content h1 {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(3rem, 6vw, 4.5rem);
-      font-weight: 700;
-      line-height: 1.1;
-      color: var(--charcoal);
-      margin-bottom: 1.5rem;
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 1.75rem;
     }
-
-    .hero-content h1 span {
-      color: var(--burnt);
-      font-style: italic;
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--terra);
     }
-
-    .tagline {
-      font-size: 1.35rem;
-      color: var(--warm-gray);
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.4rem, 5.5vw, 5.25rem);
+      font-weight: 600;
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.75rem;
+    }
+    h1 em { font-style: italic; color: var(--terra); }
+    .hero-tagline {
+      font-size: 1.05rem;
+      color: var(--ink-2);
+      max-width: 420px;
+      line-height: 1.78;
       margin-bottom: 2.5rem;
-      max-width: 480px;
     }
+    .cta-row { display: flex; gap: 0.875rem; flex-wrap: wrap; align-items: center; }
 
-    .cta-group {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
+    /* ── BUTTONS ───────────────────────────────── */
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 1rem 2rem;
-      border-radius: 100px;
-      font-weight: 600;
-      font-size: 1rem;
+      padding: 0.85rem 1.875rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      letter-spacing: 0.01em;
       text-decoration: none;
-      transition: all 0.3s ease;
+      transition: all 0.22s ease;
       cursor: pointer;
       border: none;
     }
+    .btn-primary { background: var(--ink); color: var(--bg); }
+    .btn-primary:hover { background: var(--indigo); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line-strong); }
+    .btn-ghost:hover { border-color: var(--ink); }
 
-    .btn-primary {
-      background: var(--burnt);
-      color: var(--warm-white);
-      box-shadow: 0 4px 20px rgba(139, 69, 19, 0.25);
-    }
+    /* ── HERO GOND TREE ─────────────────────────── */
+    .hero-visual { display: flex; justify-content: center; align-items: center; }
+    .hero-gond { width: 100%; max-width: 500px; }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 30px rgba(139, 69, 19, 0.35);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--burnt);
-      border: 2px solid var(--crust);
-    }
-
-    .btn-secondary:hover {
-      background: var(--crust);
-      color: var(--warm-white);
-    }
-
-    /* Hero Illustration */
-    .hero-visual {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .oven-illustration {
-      width: 100%;
-      max-width: 450px;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-
-    /* Section styling */
-    section {
-      max-width: 1400px;
+    /* ── SECTION SHELL ─────────────────────────── */
+    .section {
+      max-width: 1440px;
       margin: 0 auto;
-      padding: 5rem 3rem;
+      padding: 5.5rem 4rem;
+      border-top: 1px solid var(--line);
     }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .section-label {
-      font-family: 'Fraunces', serif;
-      font-size: 0.85rem;
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--crust);
+      color: var(--ink-2);
       margin-bottom: 1rem;
     }
-
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 1px;
+      background: var(--ink-2);
+    }
     .section-title {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700;
-      color: var(--charcoal);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.25rem, 3.8vw, 3.4rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
     }
 
-    /* Projects Grid */
+    /* ── PROJECTS ──────────────────────────────── */
+    .projects-head { margin-bottom: 2.75rem; }
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
     }
 
+    /* card */
     .project-card {
-      background: var(--warm-white);
-      border-radius: 24px;
+      background: var(--indigo);
       overflow: hidden;
-      box-shadow: 0 4px 30px var(--soft-shadow);
-      transition: all 0.4s ease;
-      border: 1px solid rgba(212, 165, 116, 0.2);
-    }
-
-    .project-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 50px rgba(139, 69, 19, 0.15);
-    }
-
-    .project-image {
       position: relative;
-      height: 220px;
-      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
+    .project-card--forest { background: var(--forest-dark); }
 
-    .project-image img {
+    .card-art {
+      position: relative;
+      height: 270px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .card-art svg {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
+      display: block;
+      transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
+    .project-card:hover .card-art svg { transform: scale(1.07); }
 
-    .project-card:hover .project-image img {
-      transform: scale(1.05);
-    }
-
-    .project-status {
+    .art-fade {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: var(--golden);
-      color: var(--charcoal);
-      padding: 0.4rem 1rem;
-      border-radius: 100px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 45%, rgba(10, 8, 60, 0.72) 100%);
+      transition: opacity 0.4s ease;
     }
-
-    .project-content {
-      padding: 1.75rem;
+    .project-card--forest .art-fade {
+      background: linear-gradient(to bottom, transparent 45%, rgba(5, 22, 12, 0.78) 100%);
     }
+    .project-card:hover .art-fade { opacity: 0.55; }
 
-    .project-content h3 {
-      font-family: 'Fraunces', serif;
-      font-size: 1.5rem;
+    .card-pill {
+      position: absolute;
+      top: 1.125rem;
+      left: 1.125rem;
+      background: rgba(240, 165, 0, 0.92);
+      color: #1A1714;
+      padding: 0.28rem 0.75rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      margin-bottom: 0.75rem;
-      color: var(--charcoal);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      backdrop-filter: blur(6px);
     }
 
-    .project-content p {
-      color: var(--warm-gray);
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
-      line-height: 1.7;
+    .card-body {
+      padding: 1.75rem 2rem 2.25rem;
+      color: #fff;
+      flex: 1;
     }
-
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
+    .card-body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 0.7rem;
     }
-
+    .card-body p {
+      font-size: 0.875rem;
+      line-height: 1.72;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 1.25rem;
+    }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.5rem; }
     .tag {
-      background: var(--cream);
-      color: var(--warm-gray);
-      padding: 0.35rem 0.85rem;
-      border-radius: 100px;
-      font-size: 0.8rem;
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.65);
+      padding: 0.22rem 0.65rem;
+      font-size: 0.72rem;
       font-weight: 500;
+      letter-spacing: 0.03em;
     }
-
-    .project-links {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .project-link {
+    .card-links { display: flex; gap: 1.5rem; }
+    .card-link {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      color: var(--burnt);
+      color: rgba(255,255,255,0.8);
       text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: gap 0.2s ease;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s, gap 0.2s;
     }
+    .card-link:hover { color: var(--saffron); gap: 0.6rem; }
 
-    .project-link:hover {
-      gap: 0.6rem;
-    }
-
-    .project-link svg {
-      width: 16px;
-      height: 16px;
-    }
-
-    /* How it Works */
-    .how-it-works {
-      background: linear-gradient(135deg, var(--warm-white) 0%, var(--cream) 100%);
-      border-radius: 32px;
-      padding: 4rem;
-      margin: 3rem;
-      max-width: calc(1400px - 6rem);
-    }
-
+    /* ── HOW IT WORKS ──────────────────────────── */
     .steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 3rem;
-      margin-top: 3rem;
+      margin-top: 3.25rem;
+      border: 1px solid var(--line);
     }
-
     .step {
-      text-align: center;
-      position: relative;
+      padding: 2.75rem 2.25rem;
+      border-right: 1px solid var(--line);
     }
-
-    .step::after {
-      content: '→';
-      position: absolute;
-      right: -1.5rem;
-      top: 2rem;
-      font-size: 2rem;
-      color: var(--crust);
-      font-family: 'Fraunces', serif;
+    .step:last-child { border-right: none; }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.75rem;
+      font-weight: 300;
+      color: var(--line-strong);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.05em;
     }
-
-    .step:last-child::after {
-      display: none;
-    }
-
-    .step-number {
-      width: 60px;
-      height: 60px;
-      background: var(--burnt);
-      color: var(--warm-white);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Fraunces', serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin: 0 auto 1.5rem;
-    }
-
     .step h4 {
-      font-family: 'Fraunces', serif;
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      color: var(--charcoal);
-    }
-
-    .step p {
-      color: var(--warm-gray);
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    /* About Section */
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    .about-visual {
-      position: relative;
-    }
-
-    .about-shape {
-      width: 100%;
-      aspect-ratio: 1;
-      background: linear-gradient(135deg, var(--crust) 0%, var(--golden) 100%);
-      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: morph 8s ease-in-out infinite;
-    }
-
-    @keyframes morph {
-      0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-      25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
-      50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
-      75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
-    }
-
-    .about-emoji {
-      font-size: 5rem;
-    }
-
-    .about-content h2 {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(2rem, 4vw, 2.75rem);
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      color: var(--charcoal);
-    }
-
-    .about-content p {
-      color: var(--warm-gray);
-      font-size: 1.1rem;
-      line-height: 1.8;
-      margin-bottom: 1.25rem;
-    }
-
-    .about-content p strong {
-      color: var(--burnt);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
       font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.65rem;
     }
+    .step p { color: var(--ink-2); font-size: 0.9rem; line-height: 1.75; }
 
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 3rem;
-      color: var(--warm-gray);
-      font-size: 0.9rem;
+    /* ── ABOUT ─────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 6rem;
+      align-items: center;
     }
-
-    footer a {
-      color: var(--burnt);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
+    .about-art svg { width: 100%; }
+    .about-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.2vw, 2.7rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
       margin-bottom: 1.5rem;
     }
-
-    /* Responsive */
-    @media (max-width: 968px) {
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 3rem;
-      }
-
-      .hero-content {
-        order: 1;
-      }
-
-      .hero-visual {
-        order: 0;
-      }
-
-      .tagline {
-        margin: 0 auto 2.5rem;
-      }
-
-      .cta-group {
-        justify-content: center;
-      }
-
-      .oven-illustration {
-        max-width: 300px;
-      }
-
-      .steps {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-
-      .step::after {
-        display: none;
-      }
-
-      .about {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .about-shape {
-        max-width: 250px;
-        margin: 0 auto;
-      }
-
-      .how-it-works {
-        margin: 3rem 1rem;
-        padding: 2.5rem 1.5rem;
-      }
+    .about-text p {
+      color: var(--ink-2);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 1.2rem;
     }
+    .about-text strong { color: var(--ink); font-weight: 600; }
 
-    @media (max-width: 600px) {
-      header {
-        padding: 1.5rem;
-        flex-direction: column;
-        gap: 1rem;
-      }
+    /* ── FOOTER ────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 4rem;
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer p { color: var(--ink-2); font-size: 0.82rem; }
+    footer a { color: var(--ink); text-decoration: none; font-weight: 500; }
+    footer a:hover { text-decoration: underline; }
+    .footer-links { display: flex; gap: 2rem; }
 
-      nav a {
-        margin-left: 1rem;
-        margin-right: 1rem;
-      }
-
-      section {
-        padding: 3rem 1.5rem;
-      }
-
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
+    /* ── RESPONSIVE ────────────────────────────── */
+    @media (max-width: 1024px) {
+      header, footer { padding-left: 2.5rem; padding-right: 2.5rem; }
+      .hero { padding: 4rem 2.5rem; grid-template-columns: 1fr; gap: 3rem; }
+      .hero-visual { order: -1; }
+      .hero-gond { max-width: 320px; margin: 0 auto; }
+      .section { padding: 4rem 2.5rem; }
+      .steps { grid-template-columns: 1fr; }
+      .step { border-right: none; border-bottom: 1px solid var(--line); }
+      .step:last-child { border-bottom: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-art svg { max-width: 320px; margin: 0 auto; display: block; }
+    }
+    @media (max-width: 640px) {
+      header { padding: 1.25rem 1.5rem; flex-wrap: wrap; gap: 1rem; }
+      nav { gap: 1.5rem; }
+      .hero { padding: 3rem 1.5rem; }
+      h1 { font-size: 3rem; }
+      .section { padding: 3rem 1.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <a href="./" class="logo">
-      <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="16" width="32" height="20" rx="4" fill="#D4A574"/>
-        <rect x="6" y="18" width="28" height="16" rx="3" fill="#E8B86D"/>
-        <ellipse cx="14" cy="26" rx="4" ry="3" fill="#8B4513" opacity="0.3"/>
-        <ellipse cx="26" cy="26" rx="4" ry="3" fill="#8B4513" opacity="0.3"/>
-        <path d="M12 12C12 12 14 8 20 8C26 8 28 12 28 12" stroke="#8B4513" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="20" cy="6" r="2" fill="#E8B86D"/>
-      </svg>
-      Half-Baked
-    </a>
-    <nav>
-      <a href="#projects">Projects</a>
-      <a href="#about">About</a>
-      <a href="https://github.com/abhirajp97" target="_blank">GitHub</a>
-    </nav>
-  </header>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Ideas baked <span>just enough</span> to share</h1>
-      <p class="tagline">Starter code for ideas worth finishing. Weekend prototypes with working code, ready for you to fork and make your own.</p>
-      <div class="cta-group">
-        <a href="#projects" class="btn btn-primary">
-          Browse Projects
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-        </a>
-        <a href="https://github.com/abhirajp97" class="btn btn-secondary" target="_blank">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-          GitHub
-        </a>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <svg class="oven-illustration" viewBox="0 0 400 350" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Steam wisps -->
-        <path d="M120 80C120 80 125 60 120 40" stroke="#D4A574" stroke-width="3" stroke-linecap="round" opacity="0.6">
-          <animate attributeName="d" values="M120 80C120 80 125 60 120 40;M120 80C120 80 115 60 120 40;M120 80C120 80 125 60 120 40" dur="2s" repeatCount="indefinite"/>
-        </path>
-        <path d="M200 70C200 70 205 50 200 30" stroke="#D4A574" stroke-width="3" stroke-linecap="round" opacity="0.6">
-          <animate attributeName="d" values="M200 70C200 70 205 50 200 30;M200 70C200 70 195 50 200 30;M200 70C200 70 205 50 200 30" dur="2.5s" repeatCount="indefinite"/>
-        </path>
-        <path d="M280 80C280 80 285 60 280 40" stroke="#D4A574" stroke-width="3" stroke-linecap="round" opacity="0.6">
-          <animate attributeName="d" values="M280 80C280 80 285 60 280 40;M280 80C280 80 275 60 280 40;M280 80C280 80 285 60 280 40" dur="1.8s" repeatCount="indefinite"/>
-        </path>
-        
-        <!-- Oven body -->
-        <rect x="50" y="100" width="300" height="220" rx="20" fill="#2D2A26"/>
-        <rect x="60" y="110" width="280" height="200" rx="15" fill="#3D3A36"/>
-        
-        <!-- Oven window -->
-        <rect x="80" y="150" width="240" height="140" rx="10" fill="#1a1816"/>
-        <rect x="90" y="160" width="220" height="120" rx="8" fill="url(#ovenGlow)"/>
-        
-        <!-- Baking tray with half-baked goods -->
-        <rect x="110" y="230" width="180" height="15" rx="3" fill="#6B635A"/>
-        
-        <!-- Half-baked cookies/items -->
-        <ellipse cx="145" cy="225" rx="20" ry="12" fill="#E8B86D"/>
-        <ellipse cx="145" cy="222" rx="16" ry="8" fill="#D4A574"/>
-        
-        <ellipse cx="200" cy="225" rx="22" ry="13" fill="#E8B86D"/>
-        <ellipse cx="200" cy="222" rx="18" ry="9" fill="#D4A574"/>
-        <circle cx="193" cy="220" r="3" fill="#8B4513" opacity="0.4"/>
-        <circle cx="207" cy="221" r="2.5" fill="#8B4513" opacity="0.4"/>
-        
-        <ellipse cx="255" cy="225" rx="18" ry="11" fill="#E8B86D"/>
-        <ellipse cx="255" cy="222" rx="14" ry="7" fill="#D4A574"/>
-        
-        <!-- Oven handle -->
-        <rect x="160" y="125" width="80" height="12" rx="6" fill="#8B4513"/>
-        
-        <!-- Control knobs -->
-        <circle cx="100" cy="125" r="10" fill="#D4A574"/>
-        <circle cx="100" cy="125" r="6" fill="#8B4513"/>
-        <circle cx="300" cy="125" r="10" fill="#D4A574"/>
-        <circle cx="300" cy="125" r="6" fill="#8B4513"/>
-        
-        <!-- Timer display -->
-        <rect x="180" y="300" width="40" height="15" rx="3" fill="#1a1816"/>
-        <text x="200" y="312" font-family="monospace" font-size="10" fill="#E8B86D" text-anchor="middle">50%</text>
-        
-        <defs>
-          <radialGradient id="ovenGlow" cx="0.5" cy="0.5" r="0.6">
-            <stop offset="0%" stop-color="#E8B86D" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#8B4513" stop-opacity="0.1"/>
-          </radialGradient>
-        </defs>
-      </svg>
-    </div>
-  </section>
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header>
+  <a href="./" class="logo">
+    <!-- Geometric logo mark: concentric circles with compass ticks — "in progress" -->
+    <svg class="logo-mark" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="13" cy="13" r="12" stroke="#1A1714" stroke-width="1.4"/>
+      <circle cx="13" cy="13" r="6.5" stroke="#1A1714" stroke-width="1.4"/>
+      <circle cx="13" cy="13" r="2" fill="#1A1714"/>
+      <line x1="13" y1="1" x2="13" y2="4.5" stroke="#1A1714" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="25" y1="13" x2="21.5" y2="13" stroke="#1A1714" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="13" y1="25" x2="13" y2="21.5" stroke="#1A1714" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="1" y1="13" x2="4.5" y2="13" stroke="#1A1714" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    Half-Baked
+  </a>
+  <nav>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="https://github.com/abhirajp97" target="_blank">GitHub</a>
+  </nav>
+</header>
 
-  <section id="projects">
-    <div class="section-header">
-      <p class="section-label">Fresh from the oven</p>
-      <h2 class="section-title">Latest Projects</h2>
+<!-- ══════════════════ HERO ══════════════════ -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Open source prototypes</div>
+    <h1>Ideas baked <em>just&nbsp;enough</em> to share</h1>
+    <p class="hero-tagline">Starter code for ideas worth finishing. Weekend prototypes with working code, ready for you to fork and make your own.</p>
+    <div class="cta-row">
+      <a href="#projects" class="btn btn-primary">
+        Browse Projects
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a>
+      <a href="https://github.com/abhirajp97" class="btn btn-ghost" target="_blank">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
     </div>
-    
-    <div class="projects-grid">
-      <!-- BotanistAI Project Card -->
-      <article class="project-card">
-        <div class="project-image" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); display: flex; align-items: center; justify-content: center;">
-          <svg width="120" height="140" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Pot -->
-            <path d="M30 95 L90 95 L85 130 L35 130 Z" fill="#D4A574"/>
-            <path d="M25 85 L95 85 L95 95 L25 95 Z" fill="#C49A6C" rx="3"/>
-            <ellipse cx="60" cy="85" rx="35" ry="5" fill="#B8896A"/>
-            <!-- Soil -->
-            <ellipse cx="60" cy="88" rx="30" ry="4" fill="#5D4037"/>
-            <!-- Main stem -->
-            <path d="M60 88 Q58 70 60 50" stroke="#4CAF50" stroke-width="4" fill="none" stroke-linecap="round"/>
-            <!-- Left leaf -->
-            <path d="M55 65 Q35 55 30 35 Q50 40 55 65" fill="#66BB6A"/>
-            <path d="M55 65 Q42 50 30 35" stroke="#4CAF50" stroke-width="1.5" fill="none"/>
-            <!-- Right leaf -->
-            <path d="M65 55 Q85 45 95 25 Q75 35 65 55" fill="#81C784"/>
-            <path d="M65 55 Q80 40 95 25" stroke="#4CAF50" stroke-width="1.5" fill="none"/>
-            <!-- Top leaf -->
-            <path d="M60 50 Q55 30 60 15 Q65 30 60 50" fill="#A5D6A7"/>
-            <path d="M60 50 Q60 32 60 15" stroke="#66BB6A" stroke-width="1" fill="none"/>
-            <!-- Small leaves -->
-            <path d="M50 75 Q40 70 35 60 Q45 65 50 75" fill="#81C784"/>
-            <path d="M70 70 Q80 62 88 55 Q78 65 70 70" fill="#66BB6A"/>
-            <!-- Health indicator sparkle -->
-            <circle cx="90" cy="30" r="8" fill="#FFF9C4" opacity="0.8"/>
-            <path d="M90 24 L90 36 M84 30 L96 30" stroke="#FFD54F" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <span class="project-status">New</span>
-        </div>
-        <div class="project-content">
-          <h3>BotanistAI</h3>
-          <p>Snap a photo of your houseplants to instantly diagnose health issues and get AI-powered care recommendations. Built with React and Gemini 2.5 Flash.</p>
-          <div class="project-tags">
-            <span class="tag">React</span>
-            <span class="tag">Gemini AI</span>
-            <span class="tag">TypeScript</span>
-            <span class="tag">Vite</span>
-          </div>
-          <div class="project-links">
-            <a href="blog/botanistai.html" class="project-link">
-              Read the story
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <a href="https://github.com/abhirajp97/botanistai" class="project-link">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-              Code
-            </a>
-          </div>
-        </div>
-      </article>
+  </div>
 
-      <!-- Placeholder for future projects -->
-      <article class="project-card" style="opacity: 0.5; border: 2px dashed var(--crust);">
-        <div class="project-image" style="background: linear-gradient(135deg, var(--cream) 0%, var(--warm-white) 100%); display: flex; align-items: center; justify-content: center;">
-          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#D4A574" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 8v8M8 12h8"/>
-          </svg>
-        </div>
-        <div class="project-content">
-          <h3>Coming Soon</h3>
-          <p>Next week's half-baked idea is still in the oven. Check back soon or follow along for updates.</p>
-          <div class="project-tags">
-            <span class="tag">???</span>
-          </div>
-        </div>
-      </article>
-    </div>
-  </section>
+  <!-- Gond-inspired Tree of Life illustration -->
+  <div class="hero-visual">
+    <svg class="hero-gond" viewBox="0 0 500 540" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="dp-s" patternUnits="userSpaceOnUse" width="8" height="8">
+          <circle cx="4" cy="4" r="1.5" fill="#F0A500"/>
+        </pattern>
+        <pattern id="dp-f" patternUnits="userSpaceOnUse" width="8" height="8">
+          <circle cx="4" cy="4" r="1.5" fill="#2D6A4F"/>
+        </pattern>
+        <pattern id="dp-t" patternUnits="userSpaceOnUse" width="8" height="8">
+          <circle cx="4" cy="4" r="1.5" fill="#C4632A"/>
+        </pattern>
+        <pattern id="dp-i" patternUnits="userSpaceOnUse" width="8" height="8">
+          <circle cx="4" cy="4" r="1.5" fill="#1B1464"/>
+        </pattern>
+      </defs>
 
-  <section class="how-it-works">
-    <div class="section-header">
-      <p class="section-label">The process</p>
-      <h2 class="section-title">How It Works</h2>
-    </div>
-    
-    <div class="steps">
-      <div class="step">
-        <div class="step-number">1</div>
-        <h4>I have an idea</h4>
-        <p>A problem I'd love to see solved, or a tool I wish existed. Instead of letting it fade, I build it.</p>
-      </div>
-      <div class="step">
-        <div class="step-number">2</div>
-        <h4>I bake it halfway</h4>
-        <p>A working prototype with real code. Enough to demonstrate the concept and prove it's possible.</p>
-      </div>
-      <div class="step">
-        <div class="step-number">3</div>
-        <h4>You finish it</h4>
-        <p>Fork the repo, extend it, ship it, monetize it. These ideas want to exist — maybe you're the one to make it happen.</p>
-      </div>
-    </div>
-  </section>
+      <!-- Ground shadow -->
+      <ellipse cx="250" cy="512" rx="140" ry="14" fill="#1A1714" opacity="0.07"/>
 
-  <section id="about">
-    <div class="about">
-      <div class="about-visual">
-        <div class="about-shape">
-          <span class="about-emoji">👨‍🍳</span>
-        </div>
+      <!-- ── TRUNK ── -->
+      <path d="M250 505 C248 478 242 448 236 418 C230 388 222 365 228 338 C234 311 248 298 250 278 C252 298 266 311 272 338 C278 365 270 388 264 418 C258 448 252 478 250 505Z" fill="#1A1714"/>
+      <path d="M250 505 C248 478 242 448 236 418 C230 388 222 365 228 338 C234 311 248 298 250 278 C252 298 266 311 272 338 C278 365 270 388 264 418 C258 448 252 478 250 505Z" fill="url(#dp-i)" opacity="0.25"/>
+
+      <!-- ── LOWER LEFT BRANCH ── -->
+      <path d="M238 375 C212 362 172 344 142 318 C114 294 96 265 88 242 C114 254 140 272 166 293 C192 314 218 340 240 368Z" fill="#2D6A4F"/>
+      <path d="M238 375 C212 362 172 344 142 318 C114 294 96 265 88 242 C114 254 140 272 166 293 C192 314 218 340 240 368Z" fill="url(#dp-f)" opacity="0.65"/>
+      <path d="M238 375 C205 355 142 305 88 242" stroke="#1A1714" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+
+      <!-- leaf tips, lower-left -->
+      <path d="M118 260 C98 246 74 224 70 200 C90 212 110 232 122 256Z" fill="#F0A500"/>
+      <path d="M118 260 C98 246 74 224 70 200 C90 212 110 232 122 256Z" fill="url(#dp-s)" opacity="0.55"/>
+      <path d="M96 278 C74 268 50 252 44 228 C64 240 84 258 98 274Z" fill="#C4632A"/>
+      <path d="M96 278 C74 268 50 252 44 228 C64 240 84 258 98 274Z" fill="url(#dp-t)" opacity="0.5"/>
+      <path d="M138 240 C122 220 112 195 118 172 C132 190 140 215 142 238Z" fill="#2D6A4F"/>
+      <path d="M138 240 C122 220 112 195 118 172 C132 190 140 215 142 238Z" fill="url(#dp-f)" opacity="0.6"/>
+
+      <!-- ── LOWER RIGHT BRANCH ── -->
+      <path d="M262 375 C288 362 328 344 358 318 C386 294 404 265 412 242 C386 254 360 272 334 293 C308 314 282 340 260 368Z" fill="#C4632A"/>
+      <path d="M262 375 C288 362 328 344 358 318 C386 294 404 265 412 242 C386 254 360 272 334 293 C308 314 282 340 260 368Z" fill="url(#dp-t)" opacity="0.55"/>
+      <path d="M262 375 C295 355 358 305 412 242" stroke="#1A1714" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+
+      <!-- leaf tips, lower-right -->
+      <path d="M382 260 C402 246 426 224 430 200 C410 212 390 232 378 256Z" fill="#F0A500"/>
+      <path d="M382 260 C402 246 426 224 430 200 C410 212 390 232 378 256Z" fill="url(#dp-s)" opacity="0.55"/>
+      <path d="M404 278 C426 268 450 252 456 228 C436 240 416 258 402 274Z" fill="#2D6A4F"/>
+      <path d="M404 278 C426 268 450 252 456 228 C436 240 416 258 402 274Z" fill="url(#dp-f)" opacity="0.6"/>
+      <path d="M362 240 C378 220 388 195 382 172 C368 190 360 215 358 238Z" fill="#1B1464"/>
+      <path d="M362 240 C378 220 388 195 382 172 C368 190 360 215 358 238Z" fill="url(#dp-i)" opacity="0.45"/>
+
+      <!-- ── MID LEFT BRANCH ── -->
+      <path d="M242 328 C218 314 185 295 158 270 C134 248 120 220 116 198 C140 214 162 236 188 260 C214 282 234 308 245 330Z" fill="#F0A500"/>
+      <path d="M242 328 C218 314 185 295 158 270 C134 248 120 220 116 198 C140 214 162 236 188 260 C214 282 234 308 245 330Z" fill="url(#dp-s)" opacity="0.5"/>
+
+      <!-- ── MID RIGHT BRANCH ── -->
+      <path d="M258 328 C282 314 315 295 342 270 C366 248 380 220 384 198 C360 214 338 236 312 260 C286 282 266 308 255 330Z" fill="#2D6A4F"/>
+      <path d="M258 328 C282 314 315 295 342 270 C366 248 380 220 384 198 C360 214 338 236 312 260 C286 282 266 308 255 330Z" fill="url(#dp-f)" opacity="0.6"/>
+
+      <!-- ── UPPER TRUNK / CROWN BRANCHES ── -->
+      <!-- Left crown -->
+      <path d="M246 278 C232 262 210 238 198 210 C188 184 190 160 202 142 C214 160 220 184 228 210 C236 232 242 256 248 278Z" fill="#C4632A"/>
+      <path d="M246 278 C232 262 210 238 198 210 C188 184 190 160 202 142 C214 160 220 184 228 210 C236 232 242 256 248 278Z" fill="url(#dp-t)" opacity="0.5"/>
+      <!-- Right crown -->
+      <path d="M254 278 C268 262 290 238 302 210 C312 184 310 160 298 142 C286 160 280 184 272 210 C264 232 258 256 252 278Z" fill="#1B1464"/>
+      <path d="M254 278 C268 262 290 238 302 210 C312 184 310 160 298 142 C286 160 280 184 272 210 C264 232 258 256 252 278Z" fill="url(#dp-i)" opacity="0.4"/>
+
+      <!-- Crown side leaves -->
+      <path d="M204 172 C186 158 164 136 158 112 C178 126 198 148 208 168Z" fill="#F0A500"/>
+      <path d="M204 172 C186 158 164 136 158 112 C178 126 198 148 208 168Z" fill="url(#dp-s)" opacity="0.6"/>
+      <path d="M190 150 C172 140 152 120 148 96 C168 108 186 130 194 146Z" fill="#2D6A4F"/>
+      <path d="M190 150 C172 140 152 120 148 96 C168 108 186 130 194 146Z" fill="url(#dp-f)" opacity="0.6"/>
+
+      <path d="M296 172 C314 158 336 136 342 112 C322 126 302 148 292 168Z" fill="#C4632A"/>
+      <path d="M296 172 C314 158 336 136 342 112 C322 126 302 148 292 168Z" fill="url(#dp-t)" opacity="0.5"/>
+      <path d="M310 150 C328 140 348 120 352 96 C332 108 314 130 306 146Z" fill="#F0A500"/>
+      <path d="M310 150 C328 140 348 120 352 96 C332 108 314 130 306 146Z" fill="url(#dp-s)" opacity="0.55"/>
+
+      <!-- ── APEX FLOWER ── -->
+      <!-- Petals -->
+      <ellipse cx="250" cy="115" rx="8" ry="14" fill="#F0A500" opacity="0.85"/>
+      <ellipse cx="250" cy="115" rx="8" ry="14" fill="url(#dp-s)" opacity="0.4" transform="rotate(45 250 115)"/>
+      <ellipse cx="250" cy="115" rx="8" ry="14" fill="#C4632A" opacity="0.75" transform="rotate(90 250 115)"/>
+      <ellipse cx="250" cy="115" rx="8" ry="14" fill="url(#dp-t)" opacity="0.35" transform="rotate(135 250 115)"/>
+      <!-- Flower center -->
+      <circle cx="250" cy="115" r="20" fill="#F0A500"/>
+      <circle cx="250" cy="115" r="13" fill="#C4632A"/>
+      <circle cx="250" cy="115" r="7"  fill="#1A1714"/>
+      <!-- Petal dots ring -->
+      <circle cx="250" cy="93"  r="4" fill="#F0A500"/>
+      <circle cx="270" cy="100" r="4" fill="#2D6A4F"/>
+      <circle cx="272" cy="122" r="4" fill="#C4632A"/>
+      <circle cx="250" cy="137" r="4" fill="#F0A500"/>
+      <circle cx="228" cy="122" r="4" fill="#1B1464"/>
+      <circle cx="230" cy="100" r="4" fill="#C4632A"/>
+
+      <!-- ── GOND-STYLE BIRDS ── -->
+      <!-- Left bird -->
+      <ellipse cx="148" cy="294" rx="6" ry="4" fill="#1A1714"/>
+      <path d="M142 292 C136 288 130 287 126 290 C130 294 136 294 142 292Z" fill="#1A1714"/>
+      <circle cx="150" cy="292" r="1.5" fill="#F0EDE4"/>
+      <!-- Right bird -->
+      <ellipse cx="352" cy="294" rx="6" ry="4" fill="#1A1714"/>
+      <path d="M358 292 C364 288 370 287 374 290 C370 294 364 294 358 292Z" fill="#1A1714"/>
+      <circle cx="350" cy="292" r="1.5" fill="#F0EDE4"/>
+
+      <!-- ── SCATTERED DOTS ── -->
+      <circle cx="60"  cy="310" r="5" fill="#F0A500" opacity="0.5"/>
+      <circle cx="44"  cy="330" r="3" fill="#C4632A" opacity="0.5"/>
+      <circle cx="72"  cy="350" r="4" fill="#2D6A4F" opacity="0.5"/>
+      <circle cx="440" cy="310" r="5" fill="#F0A500" opacity="0.5"/>
+      <circle cx="456" cy="330" r="3" fill="#2D6A4F" opacity="0.5"/>
+      <circle cx="428" cy="350" r="4" fill="#C4632A" opacity="0.5"/>
+      <circle cx="90"  cy="170" r="3" fill="#1B1464" opacity="0.4"/>
+      <circle cx="410" cy="170" r="3" fill="#F0A500" opacity="0.4"/>
+      <circle cx="76"  cy="150" r="2" fill="#C4632A" opacity="0.35"/>
+      <circle cx="424" cy="150" r="2" fill="#2D6A4F" opacity="0.35"/>
+
+      <!-- ── ROOTS ── -->
+      <path d="M242 505 C230 516 212 524 194 520" stroke="#1A1714" stroke-width="2.5" stroke-linecap="round" opacity="0.4"/>
+      <path d="M250 510 C250 522 246 534 240 540" stroke="#1A1714" stroke-width="2.5" stroke-linecap="round" opacity="0.4"/>
+      <path d="M258 505 C270 516 288 524 306 520" stroke="#1A1714" stroke-width="2.5" stroke-linecap="round" opacity="0.4"/>
+      <path d="M236 500 C218 510 200 516 180 512" stroke="#1A1714" stroke-width="1.8" stroke-linecap="round" opacity="0.28"/>
+      <path d="M264 500 C282 510 300 516 320 512" stroke="#1A1714" stroke-width="1.8" stroke-linecap="round" opacity="0.28"/>
+      <!-- Root dots -->
+      <circle cx="170" cy="524" r="3" fill="#C4632A" opacity="0.45"/>
+      <circle cx="186" cy="532" r="2" fill="#2D6A4F" opacity="0.45"/>
+      <circle cx="322" cy="524" r="3" fill="#F0A500" opacity="0.45"/>
+      <circle cx="306" cy="532" r="2" fill="#1B1464" opacity="0.45"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ══════════════════ PROJECTS ══════════════════ -->
+<section class="section" id="projects">
+  <div class="projects-head">
+    <div class="eyebrow">The work</div>
+    <h2 class="section-title">Latest Projects</h2>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- ── BotanistAI card ── -->
+    <article class="project-card" style="background:#072A3D;">
+      <div class="card-art">
+        <!-- Cyanotype + Gond hybrid: deep prussian BG, white/sky botanical forms with Gond dot-fill patterns, one saffron accent -->
+        <svg viewBox="0 0 600 270" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Cyanotype palette dot patterns -->
+            <pattern id="cy-w" patternUnits="userSpaceOnUse" width="7" height="7">
+              <circle cx="3.5" cy="3.5" r="1.2" fill="#DAEEF8"/>
+            </pattern>
+            <pattern id="cy-b" patternUnits="userSpaceOnUse" width="7" height="7">
+              <circle cx="3.5" cy="3.5" r="1.2" fill="#89C0D8"/>
+            </pattern>
+            <pattern id="cy-d" patternUnits="userSpaceOnUse" width="7" height="7">
+              <circle cx="3.5" cy="3.5" r="1.2" fill="#0E4D6A"/>
+            </pattern>
+          </defs>
+
+          <!-- Deep prussian cyanotype background -->
+          <rect width="600" height="270" fill="#072A3D"/>
+          <!-- Subtle texture -->
+          <rect width="600" height="270" fill="url(#cy-d)" opacity="0.1"/>
+
+          <!-- Central stem — sky blue stroke -->
+          <path d="M300 268 C298 248 292 222 288 196 C284 170 286 150 292 130 C296 112 300 98 300 82"
+                stroke="#89C0D8" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+
+          <!-- Large left leaf — mid prussian + white dot fill -->
+          <path d="M288 192 C262 185 224 168 194 142 C172 122 158 100 156 78
+                   C180 92 206 114 232 142 C256 168 276 184 292 196Z" fill="#1B6E96"/>
+          <path d="M288 192 C262 185 224 168 194 142 C172 122 158 100 156 78
+                   C180 92 206 114 232 142 C256 168 276 184 292 196Z" fill="url(#cy-w)" opacity="0.55"/>
+          <!-- Midrib -->
+          <path d="M288 192 C256 174 194 126 156 78" stroke="#DAEEF8" stroke-width="1.4" opacity="0.45" stroke-linecap="round" fill="none"/>
+          <!-- Secondary veins -->
+          <path d="M250 165 C228 152 204 136 188 116" stroke="#DAEEF8" stroke-width="0.8" opacity="0.35" stroke-linecap="round" fill="none"/>
+          <path d="M268 180 C248 168 228 152 210 130" stroke="#DAEEF8" stroke-width="0.8" opacity="0.3" stroke-linecap="round" fill="none"/>
+
+          <!-- Small left leaf — near-white, cyanotype highlight -->
+          <path d="M282 165 C256 156 220 136 196 108 C216 114 242 136 268 160Z" fill="#DAEEF8"/>
+          <path d="M282 165 C256 156 220 136 196 108 C216 114 242 136 268 160Z" fill="url(#cy-b)" opacity="0.45"/>
+
+          <!-- Large right leaf — mid prussian + white dot fill -->
+          <path d="M312 192 C338 185 376 168 406 142 C428 122 442 100 444 78
+                   C420 92 394 114 368 142 C344 168 324 184 308 196Z" fill="#1B6E96"/>
+          <path d="M312 192 C338 185 376 168 406 142 C428 122 442 100 444 78
+                   C420 92 394 114 368 142 C344 168 324 184 308 196Z" fill="url(#cy-w)" opacity="0.5"/>
+          <!-- Midrib -->
+          <path d="M312 192 C344 174 406 126 444 78" stroke="#DAEEF8" stroke-width="1.4" opacity="0.45" stroke-linecap="round" fill="none"/>
+          <!-- Secondary veins -->
+          <path d="M350 165 C372 152 396 136 412 116" stroke="#DAEEF8" stroke-width="0.8" opacity="0.35" stroke-linecap="round" fill="none"/>
+
+          <!-- Small right leaf — sky blue + deep dot fill -->
+          <path d="M318 165 C344 156 380 136 404 108 C384 114 358 136 332 160Z" fill="#89C0D8"/>
+          <path d="M318 165 C344 156 380 136 404 108 C384 114 358 136 332 160Z" fill="url(#cy-d)" opacity="0.5"/>
+
+          <!-- Upper left — pale -->
+          <path d="M293 144 C270 133 240 114 218 88 C238 95 262 114 288 138Z" fill="#DAEEF8"/>
+          <path d="M293 144 C270 133 240 114 218 88 C238 95 262 114 288 138Z" fill="url(#cy-b)" opacity="0.4"/>
+
+          <!-- Upper right — light blue -->
+          <path d="M307 144 C330 133 360 114 382 88 C362 95 338 114 312 138Z" fill="#B8D4E8"/>
+          <path d="M307 144 C330 133 360 114 382 88 C362 95 338 114 312 138Z" fill="url(#cy-w)" opacity="0.35"/>
+
+          <!-- Crown flower — SAFFRON (the one warm accent, ties back to site palette) -->
+          <ellipse cx="300" cy="66" rx="8" ry="12" fill="#F0A500" opacity="0.85"/>
+          <ellipse cx="300" cy="66" rx="8" ry="12" fill="#C4632A" opacity="0.65" transform="rotate(90 300 66)"/>
+          <circle cx="300" cy="66" r="18" fill="#F0A500"/>
+          <circle cx="300" cy="66" r="11" fill="#C4632A"/>
+          <circle cx="300" cy="66" r="5.5" fill="#072A3D"/>
+          <circle cx="300" cy="46"  r="3.5" fill="#F0A500"/>
+          <circle cx="318" cy="53"  r="3.5" fill="#DAEEF8"/>
+          <circle cx="319" cy="73"  r="3.5" fill="#F0A500"/>
+          <circle cx="300" cy="86"  r="3.5" fill="#89C0D8"/>
+          <circle cx="281" cy="73"  r="3.5" fill="#F0A500"/>
+          <circle cx="282" cy="53"  r="3.5" fill="#DAEEF8"/>
+
+          <!-- Side vine clusters — pale blues -->
+          <path d="M200 200 C183 186 162 168 152 146 C164 150 183 166 200 196Z" fill="#89C0D8" opacity="0.65"/>
+          <path d="M168 222 C148 212 124 198 112 176 C128 182 150 198 166 218Z" fill="#DAEEF8" opacity="0.5"/>
+          <path d="M400 200 C417 186 438 168 448 146 C436 150 417 166 400 196Z" fill="#1B6E96" opacity="0.7"/>
+          <path d="M432 222 C452 212 476 198 488 176 C472 182 450 198 434 218Z" fill="#89C0D8" opacity="0.5"/>
+
+          <!-- Ground foliage — mid prussian -->
+          <path d="M255 260 C234 248 208 234 194 212 C212 218 238 234 258 256Z" fill="#1B6E96" opacity="0.75"/>
+          <path d="M345 260 C366 248 392 234 406 212 C388 218 362 234 342 256Z" fill="#1B6E96" opacity="0.75"/>
+
+          <!-- Photogram-style wispy fronds in corners — cyanotype atmosphere -->
+          <path d="M80 242 C70 228 62 212 66 198" stroke="#DAEEF8" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.3"/>
+          <path d="M68 222 C56 216 48 206 52 194" stroke="#89C0D8" stroke-width="0.8" stroke-linecap="round" fill="none" opacity="0.28"/>
+          <path d="M74 232 C62 226 54 216 56 204" stroke="#DAEEF8" stroke-width="0.8" stroke-linecap="round" fill="none" opacity="0.25"/>
+          <path d="M520 242 C530 228 538 212 534 198" stroke="#DAEEF8" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.3"/>
+          <path d="M532 222 C544 216 552 206 548 194" stroke="#89C0D8" stroke-width="0.8" stroke-linecap="round" fill="none" opacity="0.28"/>
+
+          <!-- Scatter dots — cyanotype palette only -->
+          <circle cx="124" cy="158" r="4"   fill="#DAEEF8" opacity="0.6"/>
+          <circle cx="112" cy="146" r="2.5" fill="#89C0D8" opacity="0.55"/>
+          <circle cx="136" cy="148" r="3"   fill="#B8D4E8" opacity="0.55"/>
+          <circle cx="476" cy="158" r="4"   fill="#DAEEF8" opacity="0.6"/>
+          <circle cx="488" cy="146" r="2.5" fill="#89C0D8" opacity="0.55"/>
+          <circle cx="464" cy="148" r="3"   fill="#B8D4E8" opacity="0.55"/>
+          <circle cx="76"  cy="38"  r="2"   fill="#89C0D8" opacity="0.38"/>
+          <circle cx="524" cy="38"  r="2"   fill="#B8D4E8" opacity="0.38"/>
+          <circle cx="42"  cy="96"  r="2"   fill="#DAEEF8" opacity="0.32"/>
+          <circle cx="558" cy="96"  r="2"   fill="#89C0D8" opacity="0.32"/>
+        </svg>
+        <div class="art-fade" style="background: linear-gradient(to bottom, transparent 45%, rgba(7, 42, 61, 0.82) 100%);"></div>
+        <span class="card-pill">New</span>
       </div>
-      <div class="about-content">
-        <h2>Ideas are cheap. Execution is everything.</h2>
-        <p>I'm a builder who loves the <strong>spark of a new idea</strong> more than the grind of scaling it. So instead of hoarding half-finished projects on my hard drive, I'm releasing them into the wild.</p>
-        <p>Every week (or so), I'll ship a new prototype: <strong>working code, open source, free to fork</strong>. Some might be silly. Some might be useful. Some might just be interesting.</p>
-        <p>If one of these ideas resonates with you — if you see the potential and want to run with it — <strong>that's exactly what this is for</strong>. Take it. Make it yours. Build something amazing.</p>
-        <div class="cta-group" style="margin-top: 2rem;">
-          <a href="https://github.com/abhirajp97" class="btn btn-primary" target="_blank">
-            Follow on GitHub
+      <div class="card-body">
+        <h3>BotanistAI</h3>
+        <p>Snap a photo of your houseplants to instantly diagnose health issues and get specific, actionable care advice — not generic search results.</p>
+        <div class="tag-row">
+          <span class="tag">React</span>
+          <span class="tag">Groq / Llama 4</span>
+          <span class="tag">Vercel AI SDK</span>
+          <span class="tag">TypeScript</span>
+        </div>
+        <div class="card-links">
+          <a href="blog/botanistai.html" class="card-link">
+            Read the story
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="https://github.com/abhirajp97/botanistai" class="card-link" target="_blank">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            Code
           </a>
         </div>
       </div>
-    </div>
-  </section>
+    </article>
 
-  <footer>
-    <div class="footer-links">
-      <a href="https://github.com/abhirajp97" target="_blank">GitHub</a>
+    <!-- ── Coming Soon card ── -->
+    <article class="project-card project-card--forest" style="opacity:0.78;">
+      <div class="card-art">
+        <svg viewBox="0 0 600 270" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cs-t" patternUnits="userSpaceOnUse" width="9" height="9">
+              <circle cx="4.5" cy="4.5" r="1.4" fill="#C4632A" opacity="0.55"/>
+            </pattern>
+            <pattern id="cs-s" patternUnits="userSpaceOnUse" width="9" height="9">
+              <circle cx="4.5" cy="4.5" r="1.4" fill="#F0A500" opacity="0.55"/>
+            </pattern>
+          </defs>
+
+          <rect width="600" height="270" fill="#0D2B1A"/>
+
+          <!-- Concentric possibility rings -->
+          <circle cx="300" cy="135" r="118" stroke="#2D6A4F" stroke-width="1"   opacity="0.28"/>
+          <circle cx="300" cy="135" r="90"  stroke="#2D6A4F" stroke-width="1"   opacity="0.32"/>
+          <circle cx="300" cy="135" r="62"  stroke="#F0A500" stroke-width="1"   opacity="0.28"/>
+          <circle cx="300" cy="135" r="34"  stroke="#F0A500" stroke-width="1.5" opacity="0.38"/>
+
+          <!-- Radial spokes -->
+          <line x1="300" y1="135" x2="300" y2="17"   stroke="#F0A500" stroke-width="0.8" opacity="0.25"/>
+          <line x1="300" y1="135" x2="402" y2="76"   stroke="#F0A500" stroke-width="0.8" opacity="0.25"/>
+          <line x1="300" y1="135" x2="418" y2="186"  stroke="#F0A500" stroke-width="0.8" opacity="0.25"/>
+          <line x1="300" y1="135" x2="350" y2="244"  stroke="#F0A500" stroke-width="0.8" opacity="0.25"/>
+          <line x1="300" y1="135" x2="250" y2="244"  stroke="#F0A500" stroke-width="0.8" opacity="0.25"/>
+          <line x1="300" y1="135" x2="182" y2="186"  stroke="#F0A500" stroke-width="0.8" opacity="0.25"/>
+          <line x1="300" y1="135" x2="198" y2="76"   stroke="#F0A500" stroke-width="0.8" opacity="0.25"/>
+
+          <!-- Spiral arms -->
+          <path d="M300 135 C312 114 334 100 360 96 C384 92 405 106 412 128"
+                stroke="#2D6A4F" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+          <path d="M300 135 C278 124 260 105 256 80 C252 56 266 36 286 30"
+                stroke="#F0A500" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+          <path d="M300 135 C290 157 294 180 312 193 C330 206 352 204 364 190"
+                stroke="#C4632A" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+          <path d="M300 135 C320 144 342 162 344 186 C346 210 330 226 310 230"
+                stroke="#2D6A4F" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.45"/>
+
+          <!-- Seed shape -->
+          <path d="M300 104 C320 113 330 124 330 135 C330 146 320 158 300 166
+                   C280 158 270 146 270 135 C270 124 280 113 300 104Z" fill="#F0A500" opacity="0.88"/>
+          <path d="M300 104 C320 113 330 124 330 135 C330 146 320 158 300 166
+                   C280 158 270 146 270 135 C270 124 280 113 300 104Z" fill="url(#cs-t)"/>
+          <circle cx="300" cy="135" r="9"   fill="#0D2B1A"/>
+          <circle cx="300" cy="135" r="4.5" fill="#F0A500" opacity="0.8"/>
+
+          <!-- Sprouting shoot -->
+          <path d="M300 100 C300 84 296 72 290 62" stroke="#2D6A4F" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8"/>
+          <path d="M290 76 C280 68 268 66 260 70 C268 76 280 78 290 80Z" fill="#2D6A4F" opacity="0.8"/>
+          <path d="M291 68 C286 56 282 46 286 36 C292 42 294 54 294 66Z" fill="#2D6A4F" opacity="0.7"/>
+
+          <!-- Dot accents on spirals -->
+          <circle cx="360" cy="96"  r="4.5" fill="#F0A500" opacity="0.7"/>
+          <circle cx="370" cy="93"  r="2.5" fill="#C4632A" opacity="0.6"/>
+          <circle cx="256" cy="80"  r="4.5" fill="#2D6A4F" opacity="0.7"/>
+          <circle cx="248" cy="74"  r="2.5" fill="#F0A500" opacity="0.6"/>
+          <circle cx="364" cy="190" r="4.5" fill="#C4632A" opacity="0.7"/>
+          <circle cx="310" cy="230" r="4.5" fill="#2D6A4F" opacity="0.7"/>
+
+          <!-- Corner atmosphere dots -->
+          <circle cx="72"  cy="44"  r="5" fill="#F0A500" opacity="0.28"/>
+          <circle cx="92"  cy="60"  r="3" fill="#2D6A4F" opacity="0.28"/>
+          <circle cx="528" cy="44"  r="5" fill="#C4632A" opacity="0.28"/>
+          <circle cx="508" cy="60"  r="3" fill="#F0A500" opacity="0.28"/>
+          <circle cx="72"  cy="226" r="4" fill="#2D6A4F" opacity="0.28"/>
+          <circle cx="528" cy="226" r="4" fill="#F0A500" opacity="0.28"/>
+        </svg>
+        <div class="art-fade"></div>
+      </div>
+      <div class="card-body">
+        <h3>Coming Soon</h3>
+        <p>Next week's idea is still taking shape. Check back soon or follow along on GitHub for updates.</p>
+        <div class="tag-row">
+          <span class="tag">???</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══════════════════ HOW IT WORKS ══════════════════ -->
+<section class="section">
+  <div class="eyebrow">The process</div>
+  <h2 class="section-title">How It Works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h4>I have an idea</h4>
+      <p>A problem I'd love to see solved, or a tool I wish existed. Instead of letting it fade, I build it.</p>
     </div>
-    <p>Made with 🍞 by Abhiraj Parikh · All projects are <a href="https://opensource.org/licenses/MIT" target="_blank">MIT licensed</a></p>
-  </footer>
-  <script defer src="/_vercel/insights/script.js"></script>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h4>I bake it halfway</h4>
+      <p>A working prototype with real code. Enough to demonstrate the concept and prove it's possible.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h4>You finish it</h4>
+      <p>Fork the repo, extend it, ship it, monetize it. These ideas want to exist — maybe you're the one to make it happen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ ABOUT ══════════════════ -->
+<section class="section" id="about">
+  <div class="about-grid">
+    <div class="about-art">
+      <!-- Gond-style mandala / radial composition for the about section -->
+      <svg viewBox="0 0 380 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="m-s" patternUnits="userSpaceOnUse" width="8" height="8">
+            <circle cx="4" cy="4" r="1.3" fill="#F0A500"/>
+          </pattern>
+          <pattern id="m-f" patternUnits="userSpaceOnUse" width="8" height="8">
+            <circle cx="4" cy="4" r="1.3" fill="#2D6A4F"/>
+          </pattern>
+          <pattern id="m-t" patternUnits="userSpaceOnUse" width="8" height="8">
+            <circle cx="4" cy="4" r="1.3" fill="#C4632A"/>
+          </pattern>
+          <pattern id="m-i" patternUnits="userSpaceOnUse" width="8" height="8">
+            <circle cx="4" cy="4" r="1.3" fill="#1B1464"/>
+          </pattern>
+        </defs>
+
+        <!-- Outer guide rings -->
+        <circle cx="190" cy="190" r="172" stroke="var(--line)" stroke-width="1"/>
+        <circle cx="190" cy="190" r="136" stroke="var(--line)" stroke-width="1"/>
+
+        <!-- 8 petals — alternating saffron / terracotta pairs, forest / indigo pairs -->
+        <!-- Top petal pair -->
+        <path d="M190 190 C175 162 168 132 176 108 C184 132 190 162 190 190Z" fill="#F0A500"/>
+        <path d="M190 190 C175 162 168 132 176 108 C184 132 190 162 190 190Z" fill="url(#m-s)" opacity="0.55"/>
+        <path d="M190 190 C205 162 212 132 204 108 C196 132 190 162 190 190Z" fill="#C4632A"/>
+        <path d="M190 190 C205 162 212 132 204 108 C196 132 190 162 190 190Z" fill="url(#m-t)" opacity="0.5"/>
+
+        <!-- Right petal pair -->
+        <path d="M190 190 C218 175 248 168 272 176 C248 184 218 190 190 190Z" fill="#2D6A4F"/>
+        <path d="M190 190 C218 175 248 168 272 176 C248 184 218 190 190 190Z" fill="url(#m-f)" opacity="0.6"/>
+        <path d="M190 190 C218 205 248 212 272 204 C248 196 218 190 190 190Z" fill="#F0A500"/>
+        <path d="M190 190 C218 205 248 212 272 204 C248 196 218 190 190 190Z" fill="url(#m-s)" opacity="0.5"/>
+
+        <!-- Bottom petal pair -->
+        <path d="M190 190 C205 218 212 248 204 272 C196 248 190 218 190 190Z" fill="#1B1464"/>
+        <path d="M190 190 C205 218 212 248 204 272 C196 248 190 218 190 190Z" fill="url(#m-i)" opacity="0.4"/>
+        <path d="M190 190 C175 218 168 248 176 272 C184 248 190 218 190 190Z" fill="#C4632A"/>
+        <path d="M190 190 C175 218 168 248 176 272 C184 248 190 218 190 190Z" fill="url(#m-t)" opacity="0.5"/>
+
+        <!-- Left petal pair -->
+        <path d="M190 190 C162 205 132 212 108 204 C132 196 162 190 190 190Z" fill="#2D6A4F"/>
+        <path d="M190 190 C162 205 132 212 108 204 C132 196 162 190 190 190Z" fill="url(#m-f)" opacity="0.55"/>
+        <path d="M190 190 C162 175 132 168 108 176 C132 184 162 190 190 190Z" fill="#F0A500"/>
+        <path d="M190 190 C162 175 132 168 108 176 C132 184 162 190 190 190Z" fill="url(#m-s)" opacity="0.5"/>
+
+        <!-- Center circles -->
+        <circle cx="190" cy="190" r="30" fill="#1A1714"/>
+        <circle cx="190" cy="190" r="21" fill="#F0A500"/>
+        <circle cx="190" cy="190" r="13" fill="#C4632A"/>
+        <circle cx="190" cy="190" r="5.5" fill="#1A1714"/>
+
+        <!-- Outer dot ring (12 points) -->
+        <circle cx="190" cy="18"  r="5.5" fill="#F0A500"/>
+        <circle cx="276" cy="46"  r="5.5" fill="#2D6A4F"/>
+        <circle cx="334" cy="120" r="5.5" fill="#C4632A"/>
+        <circle cx="354" cy="206" r="5.5" fill="#1B1464"/>
+        <circle cx="328" cy="286" r="5.5" fill="#F0A500"/>
+        <circle cx="258" cy="342" r="5.5" fill="#2D6A4F"/>
+        <circle cx="174" cy="360" r="5.5" fill="#C4632A"/>
+        <circle cx="90"  cy="332" r="5.5" fill="#F0A500"/>
+        <circle cx="36"  cy="268" r="5.5" fill="#2D6A4F"/>
+        <circle cx="18"  cy="182" r="5.5" fill="#C4632A"/>
+        <circle cx="44"  cy="98"  r="5.5" fill="#1B1464"/>
+        <circle cx="116" cy="42"  r="5.5" fill="#F0A500"/>
+
+        <!-- Small inner dot ring (8 points) -->
+        <circle cx="190" cy="52"  r="3.5" fill="#C4632A" opacity="0.7"/>
+        <circle cx="244" cy="66"  r="3.5" fill="#2D6A4F" opacity="0.7"/>
+        <circle cx="276" cy="118" r="3.5" fill="#F0A500" opacity="0.7"/>
+        <circle cx="268" cy="176" r="3.5" fill="#C4632A" opacity="0.7"/>
+        <circle cx="190" cy="204" r="3.5" fill="#2D6A4F" opacity="0.7"/>
+        <circle cx="114" cy="176" r="3.5" fill="#F0A500" opacity="0.7"/>
+        <circle cx="104" cy="114" r="3.5" fill="#C4632A" opacity="0.7"/>
+        <circle cx="138" cy="66"  r="3.5" fill="#1B1464" opacity="0.7"/>
+      </svg>
+    </div>
+
+    <div class="about-text">
+      <h2>Ideas are cheap.<br>Execution is everything.</h2>
+      <p>I'm a builder who loves the <strong>spark of a new idea</strong> more than the grind of scaling it. So instead of hoarding half-finished projects on my hard drive, I'm releasing them into the wild.</p>
+      <p>Every week (or so), I'll ship a new prototype: <strong>working code, open source, free to fork</strong>. Some might be silly. Some might be useful. Some might just be interesting.</p>
+      <p>If one of these ideas resonates with you — if you see the potential and want to run with it — <strong>that's exactly what this is for</strong>. Take it. Make it yours. Build something amazing.</p>
+      <div class="cta-row" style="margin-top:2rem;">
+        <a href="https://github.com/abhirajp97" class="btn btn-primary" target="_blank">
+          Follow on GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <div class="footer-links">
+    <a href="https://github.com/abhirajp97" target="_blank">GitHub</a>
+  </div>
+  <p>Made by <a href="https://github.com/abhirajp97">Abhiraj Parikh</a> · All projects are <a href="https://opensource.org/licenses/MIT" target="_blank">MIT licensed</a></p>
+</footer>
+
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
