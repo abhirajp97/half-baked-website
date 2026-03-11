@@ -4,15 +4,15 @@
 
 ---
 
-I love having house plants, and sitting on my balcony surrounded by flowers. But they're fragile things,
+I love having house plants and sitting on my balcony surrounded by flowers. But they're fragile things,
 and even buying hardy plant species doesn't fix the fact that sometimes they die.
 
 I'm not intentionally letting this happen. I would really like to be a good plant parent. I set reminders
-to water, I check the species guidelines, I keep the plant in an appropriately sunny space.
+to water them, I check the species guidelines, and I keep the plant in an appropriately sunny space.
 
 The problem isn't that I'm unmotivated. I'm just not a botanist. By the time I notice something's wrong, I'm already googling "why are my plant leaves turning yellow" and getting 47 different answers ranging from "overwatering" to "underwatering" to "your plant is sad."
 
-This got me ideating about, and then building BotanistAI, an app where I can just scan my plant, and let AI
+This got me thinking about and subsequently building BotanistAI, an app where I can just scan my plant and let AI
 do its magic.
 
 ---
@@ -32,8 +32,7 @@ Not a generic "this might be root rot" answer, but actual, specific advice:
 Modern AI vision models are ridiculously good at this kind of thing. They can look at a leaf and notice spots, discoloration, wilting, pest damage — stuff that takes a trained eye to catch. And some really good
 vision models are actually *free*.
 
-I spent a weekend deciding to build myself a mini-botanist in my pocket, that I could use for my plants.
-
+This motivated me to spend a weekend deciding to build myself a mini-botanist in my pocket that I could use for my plants.
 ---
 
 ## What I Built
@@ -44,7 +43,7 @@ I spent a weekend deciding to build myself a mini-botanist in my pocket, that I 
 2. Take a photo of your plant (or upload one)
 3. Get an instant AI-powered health report
 
-That's it. No account required. No subscription. Just point and diagnose.
+That's it. No account required. No subscription. Just point and learn.
 
 **→ [Try the live demo](https://botanistai.vercel.app)**
 
@@ -59,7 +58,7 @@ Under the hood, it's:
 - **Recharts** for the health score radial gauge
 - **LocalStorage** for keeping a history of your scans
 
-The whole thing is ~800 lines of code. Most of the work was in crafting the right prompt — getting the AI to think like a botanist and return structured, actionable advice instead of rambling paragraphs.
+The whole thing is ~800 lines of code. Most of the work lay in crafting the right prompt — getting the AI to think like a botanist and return structured, actionable advice instead of rambling paragraphs.
 
 ---
 
